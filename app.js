@@ -1,5 +1,6 @@
 import express from "express";
 import sequelize from "./src/config/database.js";
+import User from "./src/models/user.model.js";
 
 const app = express();
 
@@ -12,7 +13,10 @@ app.get("/", (req, res) =>{
 const startServer = async () => {
     try{
         await sequelize.authenticate();
-        console.log("conexion correcta");
+        console.log("Conexion correcta");
+
+        await sequelize.sync();
+        console.log("Modelos sincronizados de forma correcta")
 
         app.listen(PORT, () => {
         console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
