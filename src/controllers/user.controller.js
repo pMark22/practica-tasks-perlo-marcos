@@ -20,4 +20,29 @@ const obtenerUsuarios = async(req,res) => {
 }
 };
 
-export default obtenerUsuarios;
+const obtenerUsuarioPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const usuario = await User.findByPk(id);
+
+        if (!usuario) {
+            return res.status(404).json({
+                mensaje: "Usuario no encontrado"
+            });
+        }
+
+        res.status(200).json({
+            mensaje: "Usuario obtenido correctamente",
+            datos: usuario
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            mensaje: "Error al obtener usuario",
+            error: error.message
+        });
+    }
+};
+
+export { obtenerUsuarios, obtenerUsuarioPorId };
