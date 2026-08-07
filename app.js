@@ -3,32 +3,33 @@ import sequelize from "./src/config/database.js";
 import User from "./src/models/user.model.js";
 import Task from "./src/models/task.model.js";
 import userRoutes from "./src/routes/user.routes.js";
+import taskRoutes from "./src/routes/task.routes.js";
 
 const app = express();
-
 const PORT = 3000;
 
 app.use(express.json());
 
-app.get("/", (req, res) =>{
-    res.send("API Funcionando Correctamente")
+app.get("/", (req, res) => {
+    res.send("API Funcionando Correctamente");
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/tasks", taskRoutes);
 
 const startServer = async () => {
-    try{
+    try {
         await sequelize.authenticate();
-        console.log("Conexion correcta");
+        console.log("Conexión correcta a la base de datos");
 
         await sequelize.sync();
-        console.log("Modelos sincronizados de forma correcta")
+        console.log("Modelos sincronizados correctamente");
 
         app.listen(PORT, () => {
-        console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
+            console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
         });
     } catch (error) {
-        console.error("Ocurrio un error:",error);
+        console.error("Ocurrió un error:", error);
     }
 };
 
