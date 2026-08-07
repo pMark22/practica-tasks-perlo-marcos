@@ -2,14 +2,19 @@ import express from "express";
 import sequelize from "./src/config/database.js";
 import User from "./src/models/user.model.js";
 import Task from "./src/models/task.model.js";
+import userRoutes from "./src/routes/user.routes.js";
 
 const app = express();
 
 const PORT = 3000;
 
+app.use(express.json());
+
 app.get("/", (req, res) =>{
     res.send("API Funcionando Correctamente")
 });
+
+app.use("/api/users", userRoutes);
 
 const startServer = async () => {
     try{
