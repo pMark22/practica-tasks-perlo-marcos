@@ -1,4 +1,5 @@
 import express from "express";
+import sequelize from "./src/config/database.js";
 
 const app = express();
 
@@ -8,8 +9,17 @@ app.get("/", (req, res) =>{
     res.send("API Funcionando Correctamente")
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
-});
+const startServer = async () => {
+    try{
+        await sequelize.authenticate();
+        console.log("conexion correcta");
 
- 
+        app.listen(PORT, () => {
+        console.log(`Servidor ejecutandose en http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error("Ocurrio un error:",error);
+    }
+};
+
+startServer();
