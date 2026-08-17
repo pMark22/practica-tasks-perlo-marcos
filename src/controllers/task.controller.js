@@ -45,11 +45,16 @@ const obtenerTareaPorId = async (req, res) => {
 
 const crearTarea = async (req, res) => {
     try {
-        const { title, description, isComplete } = req.body;
+        const { title, description, isComplete, userId } = req.body;
 
         if (!title || !description) {
             return res.status(400).json({
                 mensaje: "El título y la descripción son obligatorios"
+            });
+        }
+        if (!userId) {
+            return res.status(400).json({
+                mensaje: "El userId es obligatorio"
             });
         }
 
@@ -81,7 +86,8 @@ const crearTarea = async (req, res) => {
         const nuevaTarea = await Task.create({
             title,
             description,
-            isComplete: isComplete || false
+            isComplete: isComplete || false,
+            userId,
         });
 
         res.status(201).json({

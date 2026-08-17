@@ -6,7 +6,10 @@ import Materia from "./src/models/materia.model.js";
 import MateriaTarea from "./src/models/materiaTarea.model.js";
 import userRoutes from "./src/routes/user.routes.js";
 import taskRoutes from "./src/routes/task.routes.js";
+import materiaRoutes from "./src/routes/materia.routes.js";
+import materiaTareaRoutes from "./src/routes/materiaTarea.routes.js";
 import dotenv from "dotenv";
+
 
 dotenv.config();
 
@@ -21,6 +24,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/materias", materiaRoutes);
+app.use("/api/materia-tareas", materiaTareaRoutes);
 
 const startServer = async () => {
     try {
